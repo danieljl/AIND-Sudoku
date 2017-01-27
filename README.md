@@ -7,7 +7,7 @@ A: *Student should provide answer here*
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+A: We can just add two diagonal units into the list of all units `unitlist`.
 
 ### Install
 
