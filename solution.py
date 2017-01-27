@@ -45,7 +45,6 @@ def naked_twins(values):
     # Eliminate the naked twins as possibilities for their peers
 
 
-# TODO
 def solve(grid):
     """
     Find the solution to a Sudoku grid.
@@ -57,6 +56,10 @@ def solve(grid):
         The dictionary representation of the final sudoku grid.
         False if no solution exists.
     """
+    grid = grid_values(grid)
+    grid = reduce_puzzle(grid)
+    grid = search(grid)
+    return grid
 
 
 def grid_values(grid):
