@@ -1,3 +1,6 @@
+from collections import defaultdict
+
+
 def cross(A, B):
     "Cross product of elements in A and elements in B."
     return [a + b for a in A for b in B]
@@ -32,7 +35,6 @@ def assign_value(values, box, value):
     return values
 
 
-# TODO
 def naked_twins(values):
     """Eliminate values using the naked twins strategy.
     Args:
@@ -44,6 +46,37 @@ def naked_twins(values):
 
     # Find all instances of naked twins
     # Eliminate the naked twins as possibilities for their peers
+
+    def canonicalize(choices):
+        return ''.join(sorted(choices))
+
+    values = values.copy()
+    for unit in unitlist:
+        choices_to_boxes = defaultdict(set)
+        for box in unit:
+            choices = canonicalize(values[box])
+            if len(choices) != 2:
+                continue
+            choices_to_boxes[choices].add(box)
+
+        for choices, boxes in choices_to_boxes.items():
+            if len(boxes) < 2:  # Not twins
+                continue
+            if len(boxes) > 2:  # Impossible to solve
+                return {}
+
+            # Now, boxes are twins
+
+            peers_in_unit = set(unit) - set(boxes)
+            for peer in peers_in_unit:
+                new_choices = set(values[peer]) - set(choices)
+                new_choices = ''.join(sorted(new_choices))  # Convert to str
+                if not new_choices:  # Impossible to solve
+                    return {}
+                # Equals: values[peer] = new_choices
+                assign_value(values, peer, new_choices)
+
+    return values
 
 
 def solve(grid):

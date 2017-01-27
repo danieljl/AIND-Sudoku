@@ -3,7 +3,14 @@
 
 # Question 1 (Naked Twins)
 Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+A: My algorithm to solve Naked Twins as follows:
+
+1) In a unit, pick two boxes that have the same two digit choices `C`.
+
+2) Then, for each peer of those two boxes in the unit, remove `C` from peer's
+   choices.
+
+3) Repeat two steps above for each unit.
 
 # Question 2 (Diagonal Sudoku)
 Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
