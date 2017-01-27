@@ -19,7 +19,6 @@ peers = dict((s, set(sum(units[s], [])) - set([s])) for s in boxes)
 assignments = []
 
 
-# TODO
 def assign_value(values, box, value):
     """
     Please use this function to update your values dictionary!
@@ -109,7 +108,8 @@ def eliminate(values):
         if len(choices) != 1:
             continue
         for peer in peers[box]:
-            grid[peer] = grid[peer].replace(choices, '')
+            # Equals: grid[peer] = grid[peer].replace(choices, '')
+            assign_value(grid, peer, grid[peer].replace(choices, ''))
     return grid
 
 
@@ -127,7 +127,8 @@ def only_choice(values):
         for digit in '123456789':
             boxes_with_digit = [box for box in unit if digit in values[box]]
             if len(boxes_with_digit) == 1:
-                result[boxes_with_digit[0]] = digit
+                # Equals: result[boxes_with_digit[0]] = digit
+                assign_value(result, boxes_with_digit[0], digit)
     return result
 
 
@@ -177,7 +178,8 @@ def search(values):
     # Now use recursion to solve each one of the resulting sudokus,
     # and if one returns a value (not False), return that answer!
     for digit in values[square_fewest]:
-        values[square_fewest] = digit
+        # Equals: values[square_fewest] = digit
+        assign_value(values, square_fewest, digit)
         solution = search(values)
         if solution:
             return solution
